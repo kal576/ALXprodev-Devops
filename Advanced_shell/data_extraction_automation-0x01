@@ -1,16 +1,18 @@
 #!/bin/bash
 
 #get the name and use sed to capitalise the first letter
-NAME=$(jq -r '.name' data.json | sed 's/.*/\u&/')
+name=$(jq -r '.name' data.json | sed 's/.*/\u&/')
 
 #get the height and convert it to kg using awk, with 0 dp
-HEIGHT=$(jq '.height' data.json | awk 'printf{"%.1f", $1/10}')
+HEIGHT=$(jq '.height' data.json)
+formatted_weight=$(awk 'printf{"%.1f", $1/10}')
 
 #get the weight and convert it to m using awk, with 0 dp
-WEIGHT=$(jq '.weight' data.sjon | awk 'printf{"%.0f", $1/10}')
+weight=$(jq '.weight' data.json)
+formatted_weight=$(awk 'printf{"%.0f", $1/10}')
 
 #get the type and use sed to capitalise the first letter
-TYPE=$(jq -r 'types[0].type.name' data.json | sed 's/.*/\u$/')
+type=$(jq -r 'types[0].type.name' data.json | sed 's/.*/\u$/')
 
 #the output
-echo "$NAME is of type $TYPE, weighs ${WEIGHT}kg, and is ${HEIGHTm tall}"
+echo "$name is of type $type, weighs ${formatted_weight}kg, and is ${formatted_height}m tall.}"
