@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#script that fetches the names of several pokemons, defined inside an array, and stores their information inside the respective file names
+#script that fetches the names of the requested pokemon and outputs it in a readable format
 
 #get the name and use sed to capitalise the first letter
 name=$(jq -r '.name' data.json | sed 's/.*/\u&/')

@@ -1,12 +1,14 @@
 #!/bin/bash
 
-#a list of pokemons
-pokemon_list=("Bulbasaur" "Ivysaur" "Venusaur" "Charmander" "Charmeleon")
+#script that fetches the names of several pokemons, defined inside an array, and stores their information inside the respective file names
+
+#an array of pokemons
+pokemon_list=("bulbasaur" "ivysaur" "venusaur" "charmander" "charmeleon")
 
 for pokemon in pokemon_list; do
 	echo "Fetching data for $pokemon"
-	file_name=("pokemon_data/${pokemon,,}.json")
-	curl -s "https://pokeapi.co/api/v2/pokemon/${pokemon,,}" >> "$file_name"
+	file_name=("pokemon_data/${pokemon}.json")
+	curl -s "https://pokeapi.co/api/v2/pokemon/${pokemon}" >> "$file_name"
 	echo "Saved data to $file_name"
 	sleep 1 #delays 1 second between requests
 done
