@@ -3,6 +3,8 @@
 #pokemon url
 POKEMON_URL="https://pokeapi.co/api/v2/pokemon/"
 
+response=$(curl -s -w "%http_code" "$URL")
+
 #takes the last three characters
 RESPONSE_STATUS=${response: -3}
 
