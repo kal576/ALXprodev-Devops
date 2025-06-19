@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#script that fetches pokemon data faster by leveraging parallel processing
+
+#an array of pokemons
+pokemon_list=("bulbasaur" "ivysaur" "venusaur" "charmander" "charmeleon")
+
+for pokemon in "${pokemon_list[@]}"; do
+	echo "Fetching data for $pokemon in background..."
+	file_name="pokemon_data/${pokemon}.json"
+
+	#running curl in the background using &
+	curl -s -o "$file_name" "https://pokeapi.co/api/v2/pokemon/${pokemon}" &	sleep 1
+done
+wait
