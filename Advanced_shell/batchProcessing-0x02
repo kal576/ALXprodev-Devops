@@ -5,10 +5,33 @@
 #an array of pokemons
 pokemon_list=("bulbasaur" "ivysaur" "venusaur" "charmander" "charmeleon")
 
-for pokemon in pokemon_list; do
+for pokemon in "${pokemon_list[@]}"; do
 	echo "Fetching data for $pokemon"
-	file_name=("pokemon_data/${pokemon}.json")
-	curl -s "https://pokeapi.co/api/v2/pokemon/${pokemon}" >> "$file_name"
-	echo "Saved data to $file_name"
-	sleep 1 #delays 1 second between requests
+	file_name="pokemon_data/${pokemon}.json"
+
+	attempt=1
+	max_attempts=3
+	success=0
+
+	while [ $attempt -le $max_attempts ]; do
+		echo "Attempt $attempt for $pokemon..."
+		response = $(curl -s -w "%{http_code}" -o "$file_name" "https://pokeapi.co/api/v2/pokemon/${pokemon}")
+		status_code=$response
+
+		if [ "$status_code" -eq 200 ]; then
+			echo "Successfully saved data to $file_name"
+			success=1
+			break
+		else
+			echo "Failed to fetch data for $pokemon. Retrying..."
+			attemp=$((attempt += 1))
+			sleep 1
+		fi
+	done
+
+	if [ $success -eq 0 ]; then
+		echo "$(date '+%Y-%m-%d %H:%M:%S') - Failed to fetch data for pokemon $pokemon after $max_attempts attempts" >> error_log.txt
+	fi
+
+	sleep 1
 done
