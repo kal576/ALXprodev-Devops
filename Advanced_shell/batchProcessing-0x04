@@ -12,4 +12,10 @@ for pokemon in "${pokemon_list[@]}"; do
 	#running curl in the background using &
 	curl -s -o "$file_name" "https://pokeapi.co/api/v2/pokemon/${pokemon}" &	sleep 1
 done
+
+echo "All fetch processes started. Waiting for them to finish..."
+
+# Wait for ALL background processes to finish
 wait
+
+echo "All data fetched successfully!"
