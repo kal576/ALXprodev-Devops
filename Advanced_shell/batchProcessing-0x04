@@ -3,7 +3,7 @@
 #script that fetches pokemon data faster by leveraging parallel processing
 
 #an array of pokemons
-pokemon_list=("bulbasaur" "ivysaur" "venusaur" "charmander" "charmeleon")
+pokemon_list=("Bulbasaur" "Ivysaur" "Venusaur" "Charmander" "Charmeleon")
 
 for pokemon in "${pokemon_list[@]}"; do
 	echo "Fetching data for $pokemon in background..."
