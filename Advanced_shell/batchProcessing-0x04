@@ -13,7 +13,12 @@ for pokemon in "${pokemon_list[@]}"; do
 	curl -s -o "$file_name" "https://pokeapi.co/api/v2/pokemon/${pokemon}" &	sleep 1
 done
 
-echo "All fetch processes started. Waiting for them to finish..."
+echo "List of background processes: "
+jobs
+
+#kills the first job
+first_job_PID=$(jobs -p | head -n 1)
+kill "$first_job_PID"
 
 # Wait for ALL background processes to finish
 wait
